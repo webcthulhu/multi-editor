@@ -1,0 +1,42 @@
+:host {
+  position: relative;
+  display: block;
+  width: 195px;
+  height: 195px;
+  margin: 0 auto;
+  user-select: none;
+  cursor: crosshair;
+  .color {
+    position: absolute;
+    top: 47px;
+    left: 47px;
+    width: 101px;
+    height: 101px;
+    pointer-events: none;
+  }
+  .wheel {
+    position: absolute;
+    width: 195px;
+    height: 195px;
+    background: url('wheel.png') no-repeat;
+    pointer-events: none;
+  }
+  .overlay {
+    position: absolute;
+    top: 47px;
+    left: 47px;
+    width: 101px;
+    height: 101px;
+    background: url('overlay.png') no-repeat;
+    pointer-events: none;
+  }
+  .marker {
+    position: absolute;
+    width: 17px;
+    height: 17px;
+    margin: -8px 0 0 -8px;
+    overflow: hidden;
+    background: url('marker.png') no-repeat;
+    pointer-events: none;
+  }
+}

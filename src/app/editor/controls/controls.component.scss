@@ -1,0 +1,72 @@
+@import '~@angular/material/theming';
+@import '../../../theme';
+
+$color: mat-color($app-primary, 500);
+
+.box {
+  position: absolute;
+  display: block;
+  transform: translate(-50%, -50%);
+  border: 1px solid $color;
+  pointer-events: none;
+  .handler {
+    position: absolute;
+    display: block;
+    width: 20px;
+    height: 20px;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background-color: $color;
+  }
+  //.button {
+  //  position: absolute;
+  //  transform: translate(-50%, -50%);
+  //  width: 32px;
+  //  height: 32px;
+  //  line-height: 32px;
+  //  pointer-events: none;
+  //  /deep/.mat-button-wrapper {
+  //    padding: 0 !important;
+  //    line-height: 32px !important;
+  //  }
+  //  svg {
+  //    width: 20px;
+  //    height: 20px;
+  //    fill: #ffffff;
+  //  }
+  //}
+  .top {
+    top: 0;
+  }
+  .middle {
+    top: 50%;
+  }
+  .bottom {
+    top: 100%;
+  }
+  .left {
+    left: 0;
+  }
+  .center {
+    left: 50%;
+  }
+  .right {
+    left: 100%;
+  }
+  .above {
+    top: -32px;
+    &:before {
+      content: '';
+      position: relative;
+      top: 50%;
+      left: 50%;
+      display: block;
+      width: 0;
+      height: 32px;
+      border-left: 1px solid #e91e63;
+    }
+  }
+}
+//.mirror-h {
+//  transform: scaleX(-1);
+//}

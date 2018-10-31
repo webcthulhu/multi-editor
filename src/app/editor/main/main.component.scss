@@ -1,0 +1,12 @@
+:host {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+/deep/ .canvas-container {
+  position: absolute !important;
+  box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.4) !important;
+}

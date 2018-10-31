@@ -1,0 +1,19 @@
+<!-- COLOR -->
+<section class="p-20">
+  <app-color-selector [color]="" [label]="'Select products color'" [palette]="palette" (change)="onColorSelected($event)"></app-color-selector>
+</section>
+
+<div class="p-20" fxLayout="column" fxLayoutGap="10px">
+  <button mat-raised-button fxFlex="100%" color="primary" (click)="upload.click()">
+    {{ 'GALLERY.OPTIONS.BUTTON_UPLOAD_DESIGN' | translate }}
+  </button>
+  <button mat-raised-button fxFlex="100%" (click)="onToEditorClick()">
+    <mat-icon class="m-r-8">navigate_before</mat-icon>{{ 'GALLERY.OPTIONS.BUTTON_TO_EDITOR' | translate }}
+  </button>
+  <button mat-raised-button fxFlex="100%" (click)="onFinalizeClick()">
+    Finalize
+  </button>
+</div>
+
+<!-- HIDDEN INPUT -->
+<input type="file" hidden #upload (change)="onUploadChange($event)"/>

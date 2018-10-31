@@ -1,0 +1,36 @@
+{
+  "EDITOR": {
+    "CONTROLS": {
+
+    },
+    "OPTIONS": {
+      "BACKGROUND_HEADER": "Background",
+      "BUTTON_ADD_BACKGROUND": "Add Background",
+      "BUTTON_ADD_FOREGROUND": "Add Foreground",
+      "BUTTON_ADD_TEXT": "Add Text",
+      "BUTTON_LESS_COLORS": "Less Colors >",
+      "BUTTON_MORE_COLORS": "More Colors >",
+      "BUTTON_REPLACE_BACKGROUND": "Replace Background",
+      "BUTTON_REPLACE_FOREGROUND": "Replace Foreground",
+      "BUTTON_TO_GALLERY": "To Gallery",
+      "FOREGROUND_HEADER": "Foreground",
+      "HINT_EMPTY": "Don't leave you text empty!",
+      "HINT_TYPE": "Type your text here",
+      "LABEL_ALIGN": "Choose text align",
+      "LABEL_COLOR": "Choose text color",
+      "LABEL_FILL": "Fill Colors",
+      "LABEL_FONT": "Select a font",
+      "LABEL_FILTER": "Choose a filter",
+      "LABEL_MASKS": "Choose a mask",
+      "LABEL_TEXT": "Text",
+      "TEXT_HEADER": "Text",
+      "TEXT_PLACEHOLDER": "Type your text"
+    }
+  },
+  "GALLERY": {
+    "OPTIONS": {
+      "BUTTON_TO_EDITOR": "To Editor",
+      "BUTTON_UPLOAD_DESIGN": "Upload design"
+    }
+  }
+}

@@ -1,0 +1,21 @@
+<h2 mat-dialog-title class="text-ellipsis">Edit design: {{ product.name }}</h2>
+<mat-dialog-content fxLayout="row" fxLayoutGap="10px">
+  <div class="product-container">
+    <div class="design-container" #container [style.backgroundColor]="color">
+      <img class="design-image" #image
+        [src]="design | async"
+        [style.transform]="'translate(' + x + '%,' + y + '%)'">
+    </div>
+    <img class="overlay-image" #overlay
+         [src]="'assets/images/products/' + product.overlay"
+         (load)="setDimensions(overlay, container, image)"
+         (mousedown)="onMouseDown($event, image)">
+  </div>
+  <div class="options-container">
+    <app-color-selector [color]="color" [label]="'Select product color'" [palette]="palette" (change)="onColorSelected($event)"></app-color-selector>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button color="primary" (click)="onYesClick()">Save</button>
+</mat-dialog-actions>

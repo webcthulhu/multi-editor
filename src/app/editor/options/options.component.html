@@ -1,0 +1,164 @@
+<div class="p-20" fxLayout="row" fxLayoutGap="10px">
+  <button mat-raised-button fxFlex="100%" (click)="clearCanvas()">
+    <mat-icon class="m-r-8">refresh</mat-icon>Clear
+  </button>
+</div>
+<mat-accordion>
+  <!-- TEXT OBJECT -->
+  <mat-expansion-panel #textpanel [expanded]="expanded === 0" (click)="textpanel.expanded ? expanded = 0 : expanded = null;">
+    <mat-expansion-panel-header>
+      <mat-panel-title><mat-icon>title</mat-icon></mat-panel-title>
+      <mat-panel-description>{{ 'EDITOR.OPTIONS.TEXT_HEADER' | translate }}</mat-panel-description>
+    </mat-expansion-panel-header>
+    <section fxLayout="row" fxLayoutAlign="center center">
+      <button fxFill mat-raised-button color="primary" class="action-button" (click)="addText()">
+        <mat-icon class="m-r-8">add_circle_outline</mat-icon>{{ 'EDITOR.OPTIONS.BUTTON_ADD_TEXT' | translate }}
+      </button>
+    </section>
+    <ng-container *ngIf="(object | async) as obj">
+      <ng-container *ngIf="obj.subtype === 'text'">
+
+        <!-- TEXT -->
+        <section class="type">
+          <h4>{{ 'EDITOR.OPTIONS.LABEL_TEXT' | translate }}</h4>
+          <div fxLayout="row" fxLayoutAlign="start">
+            <mat-form-field class="full-width" [floatLabel]="'never'">
+              <textarea matInput matTextareaAutosize class="text-textarea" placeholder="{{ 'EDITOR.OPTIONS.TEXT_PLACEHOLDER' | translate }}" [(ngModel)]="obj.text" (keyup)="setTextText(obj.text)" (change)="onTextChange($event)" autofocus></textarea>
+              <mat-hint class="hint-green" align="start" *ngIf="isTypeHintVisible" [innerHTML]="'EDITOR.OPTIONS.HINT_TYPE' | translate"></mat-hint>
+              <mat-hint class="hint-red" align="start" *ngIf="!isTypeHintVisible && !obj?.text?.length">{{ 'EDITOR.OPTIONS.HINT_EMPTY' | translate }}</mat-hint>
+            </mat-form-field>
+          </div>
+        </section>
+
+        <!-- FONT -->
+        <section>
+          <h4>{{ 'EDITOR.OPTIONS.LABEL_FONT' | translate }}</h4>
+          <div fxLayout="row" fxLayoutAlign="center">
+            <mat-form-field class="full-width" [floatLabel]="'never'">
+              <mat-select [(ngModel)]="obj.fontFamily" [ngStyle]="{'font-family': obj.fontFamily + ' Mini'}" (selectionChange)="setTextFont(obj.fontFamily)" style="font-size:24px;line-height:36px;height:36px;">
+                <mat-option *ngFor="let font of fonts" [value]="font" [ngStyle]="{'font-family': font + ' Mini'}" style="font-size:24px;line-height:48px;height:48px;">
+                  {{ font }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </section>
+
+        <!-- ALIGN -->
+        <section>
+          <h4>{{ 'EDITOR.OPTIONS.LABEL_ALIGN' | translate }}</h4>
+          <div fxLayout="row" fxLayoutAlign="center" class="padding-sm margin-md">
+            <mat-button-toggle-group #alignGroup="matButtonToggleGroup" class="align-group" (change)="setTextAlign(alignGroup.value)" [value]="obj.textAlign">
+              <mat-button-toggle value="left"><i class="material-icons">format_align_left</i></mat-button-toggle>
+              <mat-button-toggle value="center"><i class="material-icons">format_align_center</i></mat-button-toggle>
+              <mat-button-toggle value="right"><i class="material-icons">format_align_right</i></mat-button-toggle>
+              <mat-button-toggle value="justify"><i class="material-icons">format_align_justify</i></mat-button-toggle>
+            </mat-button-toggle-group>
+          </div>
+        </section>
+
+        <!-- SHADOW, BOLD, ITALIC -->
+        <section>
+          <div fxLayout="column" fxLayoutAlign="center center" class="padding-sm margin-md">
+            <mat-button-toggle-group name="fontStyle" aria-label="Font Style" multiple (change)="onFontStyleChange($event.value)">
+              <mat-button-toggle value="bold">Bold</mat-button-toggle>
+              <mat-button-toggle value="italic">Italic</mat-button-toggle>
+              <mat-button-toggle value="shadow">Shadow</mat-button-toggle>
+            </mat-button-toggle-group>
+          </div>
+        </section>
+
+        <!-- COLOR -->
+        <section>
+          <app-color-selector [color]="obj.fill" [label]="'EDITOR.OPTIONS.LABEL_COLOR' | translate" [palette]="palette" (change)="setTextColor($event)"></app-color-selector>
+        </section>
+
+      </ng-container>
+    </ng-container>
+  </mat-expansion-panel>
+
+  <!-- IMAGE (FOREGROUND) OBJECT -->
+  <mat-expansion-panel [expanded]="expanded === 1" (opened)="expanded = 1">
+    <mat-expansion-panel-header>
+      <mat-panel-title><mat-icon>photo_camera</mat-icon></mat-panel-title>
+      <mat-panel-description>{{ 'EDITOR.OPTIONS.FOREGROUND_HEADER' | translate }}</mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <section>
+      <div fxLayout="row" fxLayoutAlign="start" class="p-5 m-b-10">
+        <button fxFill mat-raised-button color="primary" (click)="foreground.click()" class="action-button">
+          <mat-icon class="m-r-8">add_circle_outline</mat-icon>{{ 'EDITOR.OPTIONS.BUTTON_ADD_FOREGROUND' | translate }}
+        </button>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="start" class="p-5 m-b-10" *ngIf="(object | async)?.subtype === 'foreground'">
+        <button fxFill mat-raised-button color="primary" (click)="replace.click()" class="action-button">
+          <mat-icon class="m-r-8">cached</mat-icon>{{ 'EDITOR.OPTIONS.BUTTON_REPLACE_FOREGROUND' | translate }}
+        </button>
+      </div>
+    </section>
+
+    <ng-container *ngIf="(object | async)?.subtype === 'foreground'">
+      <section>
+        <h4>{{ 'EDITOR.OPTIONS.LABEL_FILTER' | translate }}</h4>
+        <mat-grid-list cols="3" rowHeight="1:1">
+          <mat-grid-tile *ngFor="let filter of filters">
+            <img [src]="filter.src" [alt]="filter.label" class="filter-key" (click)="setImageFilter(filter.value)">
+          </mat-grid-tile>
+        </mat-grid-list>
+      </section>
+      <section>
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+          <h4>{{ 'EDITOR.OPTIONS.LABEL_MASKS' | translate }}</h4>
+          <div>
+            <button mat-icon-button fxFlexAlign="end" [disabled]="masks.indexPage === masks.minPage" (click)="masks.indexPage = (masks.indexPage === masks.minPage) ? masks.minPage : masks.indexPage - 1; masks.selection = masks.all[masks.indexPage]">
+              <i class="material-icons">keyboard_arrow_left</i>
+            </button>
+            <button mat-icon-button fxFlexAlign="end" [disabled]="masks.indexPage === masks.maxPage" (click)="masks.indexPage = (masks.indexPage === masks.maxPage) ? masks.maxPage : masks.indexPage + 1; masks.selection = masks.all[masks.indexPage]">
+              <i class="material-icons">keyboard_arrow_right</i>
+            </button>
+          </div>
+        </div>
+        <mat-grid-list cols="3" rowHeight="1:1">
+          <mat-grid-tile>
+            <button mat-icon-button aria-label="No mask." (click)="mask.src = null; mask.overlay = null; setImageMaskSrc();">
+              <i class="material-icons">clear</i>
+            </button>
+          </mat-grid-tile>
+          <mat-grid-tile *ngFor="let i of masks.selection">
+            <button mat-icon-button aria-label="Image mask." (click)="mask.src = i.src; mask.overlay = i.overlay; setImageMaskSrc();">
+              <img class="mask-icon" [src]="i.thumb || i.src">
+            </button>
+          </mat-grid-tile>
+        </mat-grid-list>
+        <div fxLayout="row" fxLayoutAlign="center">
+          <mat-slider fxFlex="90%" [min]="masks.minZoom" [max]="masks.maxZoom" [step]="masks.stepZoom" [value]="mask.zoom" [disabled]="!mask.src" (change)="mask.zoom = $event.value; setImageMaskZoom();"></mat-slider>
+        </div>
+      </section>
+    </ng-container>
+  </mat-expansion-panel>
+
+  <!-- IMAGE (BACKGROUND) OBJECT -->
+  <mat-expansion-panel [expanded]="expanded === 2" (opened)="expanded = 2">
+    <mat-expansion-panel-header>
+      <mat-panel-title><mat-icon>image</mat-icon></mat-panel-title>
+      <mat-panel-description>{{ 'EDITOR.OPTIONS.BACKGROUND_HEADER' | translate }}</mat-panel-description>
+    </mat-expansion-panel-header>
+    <section fxLayout="row" fxLayoutAlign="start">
+      <button fxFill mat-raised-button color="primary" class="action-button" (click)="background.click()">
+        <mat-icon class="m-r-8">add_circle_outline</mat-icon>{{((designHasBackground | async) ? 'EDITOR.OPTIONS.BUTTON_REPLACE_BACKGROUND' : 'EDITOR.OPTIONS.BUTTON_ADD_BACKGROUND') | translate}}
+      </button>
+    </section>
+  </mat-expansion-panel>
+
+</mat-accordion>
+
+<div class="p-20" fxLayout="row" fxLayoutGap="10px">
+  <button mat-raised-button fxFlex="100%" (click)="save()">
+    {{ 'EDITOR.OPTIONS.BUTTON_TO_GALLERY' | translate }}<mat-icon class="m-l-8">navigate_next</mat-icon>
+  </button>
+</div>
+
+<!-- HIDDEN INPUTS -->
+<input type="file" hidden #foreground (change)="addForeground($event)"/>
+<input type="file" hidden #replace (change)="replaceImage($event)"/>
+<input type="file" hidden #background (change)="addBackground($event)"/>

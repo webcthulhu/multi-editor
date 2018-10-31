@@ -1,0 +1,31 @@
+.full-width { width: 100%; }
+
+/* Margins & Padding */
+.m-0 { margin: 0 !important; }
+.m-5 { margin: 5px }
+.m-10 { margin: 10px }
+.m-15 { margin: 15px }
+.m-20 { margin: 20px }
+.m-25 { margin: 25px }
+.m-b-5 { margin-bottom: 5px; }
+.m-b-10 { margin-bottom: 10px; }
+.m-b-15 { margin-bottom: 15px; }
+.m-b-20 { margin-bottom: 20px; }
+.m-b-25 { margin-bottom: 25px; }
+.m-l-8 { margin-left: 8px; }
+.m-r-8 { margin-right: 8px; }
+.p-0 { padding: 0 !important; }
+.p-5 { padding: 5px; }
+.p-10 { padding: 10px; }
+.p-15 { padding: 15px; }
+.p-20 { padding: 20px; }
+.p-25 { padding: 25px; }
+
+/* Typography */
+.text-capitalize { text-transform: capitalize; }
+.text-lowercase { text-transform: lowercase; }
+.text-uppercase { text-transform: uppercase; }
+.text-left { text-align: left; }
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.text-ellipsis { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }

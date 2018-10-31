@@ -1,0 +1,72 @@
+:host {
+  box-shadow: 0 0 3px 0 rgba(0,0,0,0.4);
+  overflow: hidden;
+}
+
+.mat-expansion-panel-header-description {
+  line-height: 24px;
+}
+.basic-text-options {
+  margin-bottom: 15px;
+}
+h4 {
+  margin: 0;
+  color: #575757;
+  font-weight: 400;
+}
+section {
+  margin-bottom: 25px;
+}
+.text-textarea {
+  font-size: 20px;
+  line-height: 24px;
+}
+.align-group {
+  width: 100%;
+  justify-content: space-between;
+}
+.color-group {
+  max-width: 240px;
+  flex-wrap: wrap;
+  padding: 2px;
+}
+.color-group .mat-button-toggle {
+  width: 36px;
+  margin: 2px;
+  border-radius: 50%;
+}
+.color-group .mat-button-toggle .material-icons {
+  color: #ffffff;
+  opacity: 0;
+}
+.color-group .mat-button-toggle.mat-button-toggle-checked .material-icons {
+  margin-left: -11px;
+  padding: 1px;
+  border-radius: 50%;
+  background-color: rgba(0,0,0,.25);
+  opacity: 1;
+}
+.mat-grid-list {
+  width: 100%;
+}
+.mat-grid-tile {
+  background: #EEEEEE;
+}
+.filter-key {
+  cursor: pointer;
+}
+.action-button {
+  text-align: left;
+  overflow: hidden;
+}
+.hint-green {
+  color: #4CAF50;
+}
+.hint-red {
+  color: #F44336;
+}
+.mask-icon {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}

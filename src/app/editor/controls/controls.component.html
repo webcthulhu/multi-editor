@@ -1,0 +1,11 @@
+<div class="box" *ngIf="object$ | async as object" [ngStyle]="getBoxPositionStyle(object)">
+  <div class="handler top left"></div>
+  <div class="handler top center" *ngIf="isNotText(object)"></div>
+  <div class="handler top right"></div>
+  <div class="handler middle left" *ngIf="isNotText(object)"></div>
+  <div class="handler middle right" *ngIf="isNotText(object)"></div>
+  <div class="handler bottom left"></div>
+  <div class="handler bottom center" *ngIf="isNotText(object)"></div>
+  <div class="handler bottom right"></div>
+  <div class="handler above center"></div>
+</div>

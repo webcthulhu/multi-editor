@@ -1,0 +1,14 @@
+@import '~@angular/material/theming';
+
+$general-typography: mat-typography-config(
+  $font-family: '"Catamaran", sans-serif'
+);
+
+@include mat-core($general-typography);
+
+$app-primary: mat-palette($mat-pink, 500);
+$app-accent: mat-palette($mat-amber, 500);
+$app-warn: mat-palette($mat-red, 500);
+$app-theme: mat-light-theme($app-primary, $app-accent, $app-warn);
+
+@include angular-material-theme($app-theme);

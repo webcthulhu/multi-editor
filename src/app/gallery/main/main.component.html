@@ -1,0 +1,27 @@
+<mat-grid-list cols="3" rowHeight="1:1" gutterSize="10px">
+  <mat-grid-tile *ngFor="let product of products, index as i;" (click)="onTileClick(i)" style="overflow:hidden;">
+    <div #container class="design-container" [style.backgroundColor]="colors[i]">
+      <img #image class="design-image" [src]="design | async" [style.transform]="'translate(' + coordinates[i].x + '%, ' + coordinates[i].y + '%)'" (load)="setDimensions(overlay, container, image, product)">
+    </div>
+    <img #overlay class="overlay-image" draggable="false"
+         [src]="'assets/images/products/' + product.overlay"
+         (window:resize)="setDimensions(overlay, container, image, product)"
+         (load)="setDimensions(overlay, container, image, product)">
+    <div class="information-container">
+      {{ product.name }}
+    </div>
+    <div class="disable-screen" *ngIf="!enabled[i]"></div>
+    <div class="actions-container" (click)="$event.stopPropagation();" fxLayout="row" fxLayoutAlign="space-between center">
+      <mat-checkbox class="disable-checkbox" color="primary" [checked]="enabled[i]" (change)="onEnableChange($event.checked, i)">
+        Enable
+      </mat-checkbox>
+      <span fxFlex></span>
+      <button mat-icon-button class="edit-button" [disabled]="!enabled[i]" (click)="onTileClick(i)">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button class="fixed-button" [disabled]="!enabled[i]" [class.locked]="locked[i]" (click)="onLockedClick(i)">
+        <mat-icon>{{ locked[i] ? 'lock' : 'lock_open' }}</mat-icon>
+      </button>
+    </div>
+  </mat-grid-tile>
+</mat-grid-list>
