@@ -11,6 +11,5 @@ export class AppComponent {
   constructor(private router: RouteService, private translate: TranslateService) {
     translate.setDefaultLang('en');
     translate.use('en');
-    router.navigate('editor');
   }
 }

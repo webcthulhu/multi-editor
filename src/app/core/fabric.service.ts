@@ -318,12 +318,12 @@ export class FabricService {
     this.canvas.clear();
   }
 
-  saveCanvas() {
-    return this.canvas.toJSON(SAVE_PROPERTIES);
+  saveCanvas(canvas = null) {
+    return (canvas || this.canvas).toJSON(SAVE_PROPERTIES);
   }
 
-  saveDesign() {
-    return this.canvas.toDataURL();
+  saveDesign(canvas = null) {
+    return (canvas || this.canvas).toDataURL();
   }
 
   loadDesign(data) {
@@ -521,5 +521,25 @@ export class FabricService {
         this.state.object = e.target;
       }
     });
+  }
+
+  // new
+  addFromGallery(img) {
+    const canvas = new Fabric.Canvas();
+    canvas.setWidth(img.width);
+    canvas.setHeight(img.height);
+    const image = new Fabric.Image(img);
+    image.set({
+      width: canvas.width,
+      height: canvas.height,
+      originX: 'left',
+      originY: 'top',
+      sourceBox: {x: 0, y: 0, width: image._element.width, height: image._element.height},
+      sourceCenter: {x: Math.floor(image._element.width / 2), y: Math.floor(image._element.height / 2)},
+      sourceZoom: SRC_ZOOM_VALUES[SRC_ZOOM_VALUES.length - 1],
+      sourceZoomIndex: SRC_ZOOM_VALUES.length - 1
+    });
+    canvas.add(image);
+    return canvas;
   }
 }

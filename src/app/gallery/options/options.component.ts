@@ -10,13 +10,13 @@ import {IProduct} from '../../shared/data/products';
   styleUrls: ['./options.component.scss']
 })
 export class OptionsComponent implements OnInit {
-  palette: string[];
+  // palette: string[];
   constructor(private router: RouteService, private fabric: FabricService, private state: StateService) {
-    this.state.products$.subscribe(res => {
-      this.palette = res.reduce((acc: string[], cur: IProduct) => {
-        return acc.concat(cur.colors.filter(i => acc.indexOf(i) < 0));
-      }, []);
-    });
+    // this.state.products$.subscribe(res => {
+    //   this.palette = res.reduce((acc: string[], cur: IProduct) => {
+    //     return acc.concat(cur.colors.filter(i => acc.indexOf(i) < 0));
+    //   }, []);
+    // });
   }
 
   ngOnInit() {
@@ -25,21 +25,21 @@ export class OptionsComponent implements OnInit {
   onUploadChange(e) {
     if (e.target.files[0] && e.target.files[0].type.match('image.*')) {
       this.fabric.loadImage(e.target.files[0]).then((img: HTMLCanvasElement) => {
-        this.fabric.clearCanvas();
-        this.fabric.addBackground(img);
-        const canvas = this.fabric.saveCanvas();
-        if (canvas.objects.length > 0) {
-          this.state.canvas = canvas;
-          this.state.design = this.fabric.saveDesign();
+        // this.fabric.clearCanvas();
+        // this.fabric.addBackground(img);
+        const canvas = this.fabric.addFromGallery(img);
+        if (canvas._objects.length > 0) {
+          this.state.canvas = this.fabric.saveCanvas(canvas);
+          this.state.design = this.fabric.saveDesign(canvas);
         }
       });
       e.target.value = '';
     }
   }
 
-  onToEditorClick() {
-    this.router.navigate('editor');
-  }
+  // onToEditorClick() {
+  //   this.router.navigate('editor');
+  // }
 
   onColorSelected(color: string) {
     this.state.colors = color;
